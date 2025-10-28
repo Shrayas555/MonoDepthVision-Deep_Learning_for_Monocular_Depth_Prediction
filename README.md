@@ -1,73 +1,28 @@
 # MonoDepthNet — Monocular Depth Estimation with UNet
 
-[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)]()
-[![PyTorch](https://img.shields.io/badge/Framework-PyTorch-red.svg)]()
-[![Dataset](https://img.shields.io/badge/Dataset-NYU%20Depth%20V2-green.svg)]()
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)]()
+MonoDepthNet is a deep learning project for monocular depth estimation, where the goal is to predict pixel-wise depth maps from single RGB images.  
+This model uses a UNet-based convolutional architecture with skip connections to learn dense depth representations efficiently.
 
-## 📖 Overview
-**MonoDepthNet** is a deep learning project focused on **monocular depth estimation** — predicting a depth map from a single RGB image.  
-Developed as part of *CPSC 8810: Deep Learning for Computational Photography*, this project implements a **UNet-based convolutional neural network** trained on the **NYU Depth V2** dataset to achieve high-precision pixel-wise depth prediction.
+The project is implemented in PyTorch and trained on the NYU Depth V2 dataset.  
+It leverages a scale-invariant loss function and AdamW optimizer to achieve high accuracy and stable convergence.
 
-> **Author:** Shrayas Raju  
-> **CUID:** C10067703  
-> **Framework:** PyTorch (CUDA accelerated)
+### Key Features
+- UNet-based encoder–decoder network for depth prediction  
+- Scale-invariant loss for robust geometric consistency  
+- AdamW optimization with adaptive learning rate scheduling  
+- Early stopping and checkpoint saving for efficient training  
+- Visualization of RGB, ground truth, and predicted depth maps  
 
----
+### Results
+The model achieved strong convergence with low training and validation losses, demonstrating effective generalization across unseen indoor scenes.  
+Loss curves show consistent improvement, and predicted depth maps align closely with ground truth distributions.
 
-## 📂 Dataset
-**NYU Depth V2 Dataset**  
-📦 [Dataset Link](https://www.kaggle.com/datasets/soumikrakshit/nyu-depth-v2)
+### Future Work
+- Integrate ResNet or transformer backbones for improved feature extraction  
+- Explore SSIM or perceptual loss for sharper depth boundaries  
+- Extend the model to real-time inference for computational photography applications  
 
-- Indoor RGB-D dataset containing thousands of paired RGB and depth images  
-- Training set: **45,000 samples**  
-- Validation set: **5,000 samples**  
-- Input size: **240×320** pixels  
-- Each RGB image has a matching 16-bit PNG depth map  
-
----
-
-## 🧠 Model Architecture
-
-The architecture is a **Deep UNet (4 levels)** designed for dense depth prediction:
-
-- **Encoder:** Four DoubleConv blocks with max pooling  
-- **Bottleneck:** 1024-channel representation  
-- **Decoder:** Transposed convolutions with skip connections  
-- **Output Layer:** 1-channel depth prediction  
-
-**Loss Function:** Scale-Invariant Loss  
-**Optimizer:** AdamW  
-**Scheduler:** ReduceLROnPlateau  
-**Early Stopping:** Patience of 7 epochs  
-
----
-
-## ⚙️ Training Configuration
-
-| Parameter | Value |
-|------------|--------|
-| Epochs | 25 |
-| Batch Size | 16 |
-| Learning Rate | 1e-4 |
-| Weight Decay | 1e-5 |
-| Train/Val Split | 90% / 10% |
-| Device | CUDA (if available) |
-
----
-
-## 📊 Results
-
-The model shows strong convergence and low validation loss, reaching **~0.0049** final validation loss.
-
-| Metric | Train Loss | Validation Loss |
-|---------|-------------|----------------|
-| Initial | 3.8678 | 1.6602 |
-| Final | 0.0036 | 0.0049 |
-
-📈 *Training and validation loss curve shows steady convergence throughout training.*
-
----
-
-
+### Author
+Shrayas Raju  
+Clemson University  
 
